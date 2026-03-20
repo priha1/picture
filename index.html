@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Page 💖</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial;
+            background: rgb(0, 0, 0);
+            color: white;
+            overflow: hidden;
+        }
+        /* Sections */
+        .section {
+            display: none;
+            opacity: 0;
+            transition: 1s;
+        }
+        .active {
+            display: block;
+            opacity: 1;
+        }
+        /* Images */
+        img {
+            width: 200px;
+            margin: 20px;
+            border-radius: 15px;
+            transition: 0.5s;
+            margin-top: auto;
+        }
+        img:hover {
+            transform: scale(1.1);
+        }
+        /* Buttons */
+        button {
+            padding: 10px 20px;
+            margin-top: auto;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            
+        }
+        /* ❤️ Floating Hearts */
+        .heart {
+            position: absolute;
+            bottom: 0;
+            color: red;
+            font-size: 20px;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+        /* Gift Box */
+#giftSection {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    animation: float 3s ease-in-out infinite; /* Apply the animation */
+}
+
+/* Floating animation */
+@keyframes float {
+    0% {
+        transform: translateY(0); /* Start at the original position */
+    }
+    50% {
+        transform: translateY(-10px); /* Move up by 10px */
+    }
+    100% {
+        transform: translateY(0); /* Return to the original position */
+    }
+}
+        
+        /* Special Message */
+        #specialMessage {
+            font-size: 1.8rem;
+            color: white;
+            margin-top: 10px;
+        }
+        /* final message */
+        #finalmessage {
+            font-size: 1.8rem;
+            color: white;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+<button onclick="playMusic()">Click this 🎵</button>
+
+<!-- 🔒 Lock Screen -->
+<div id="lockScreen" class="section active">
+    <h1>Enter Password 🔒</h1>
+    <input type="password" id="pass">
+    <br>
+    <button onclick="checkPass()">Unlock</button>
+</div>
+
+<!-- 💬 Message -->
+<div id="messageSection" class="section">
+    <h1 id="typing"></h1>
+    <button onclick="showGift()">Next 🎁</button>
+</div>
+
+<!-- 🎁 Gift Section -->
+<div id="giftSection" class="section">
+    <p id="specialMessage">Thank you for being the most amazing person in my life! 💖</p>
+    <button onclick="showGallery()">See Our Memories 📸</button>
+</div>
+
+<!-- 🖼️ Gallery -->
+<div id="gallery" class="section">
+    <h1>Our Memories 📸</h1>
+    <img src="pic1.jpeg">
+    <img src="pic2.jpeg">
+    <img src="pic3.jpeg">
+    <img src="pic4.jpeg">
+    <button onclick="showMessage()">Next 💌</button>
+</div>
+
+<!-- 💌 Final Message -->
+<div id="finalMessage" class="section">
+    <h1>You're the best! I love you so much ❤️</h1>
+</div>
+
+<script>
+    // 🎵 Play Music
+    function playMusic() {
+        document.getElementById("bgMusic").play();
+    }
+
+    // 🔒 Password function
+    function checkPass() {
+        let pass = document.getElementById("pass").value;
+        if (pass === "1234") {
+            switchSection("lockScreen", "messageSection");
+            typeText();
+        } else {
+            alert("Wrong Password!");
+        }
+    }
+
+    // 🔄 Smooth switch
+    function switchSection(hide, show) {
+        document.getElementById(hide).classList.remove("active");
+        setTimeout(() => {
+            document.getElementById(show).classList.add("active");
+        }, 300);
+    }
+
+    // 💬 Typing effect
+    let text = "Happy Birthday To You My Lifeline May Allah bless this new chapter with joy, spiritual elevation, and success in this life and the hereafter ❤️";
+    let i = 0;
+
+    function typeText() {
+        if (i < text.length) {
+            document.getElementById("typing").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeText, 80);
+        }
+    }
+
+    // 🎁 Show Gift Section
+    function showGift() {
+        switchSection("messageSection", "giftSection");
+
+    }
+
+    // ➡️ Gallery function
+    function showGallery() {
+        switchSection("giftSection", "gallery");
+    }
+
+    // 💌 Show Final Message
+    function showMessage() {
+        switchSection("gallery", "finalMessage");
+    }
+
+    // ❤️ Create floating hearts
+    function createHeart() {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    // Run hearts continuously
+    setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
